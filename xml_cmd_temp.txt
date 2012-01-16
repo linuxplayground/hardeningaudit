@@ -1,0 +1,2 @@
+Line:10,UUID=7390575e-d5a2-4d91-b9f5-d077651249cf /boot ext4 defaults 1 2
+Line:11,/dev/mapper/vg_eitdavidl-lv_home /home ext4 defaults 1 2

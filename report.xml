@@ -1,0 +1,593 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="report.xsl"?>
+<items>
+<item><name>Section_1:_General_principals</name><title>Section 1: General principals.</title><type>TEXT</type><msg>No active checks neccessary.</msg></item>
+<item><name>Section_2_-_System_Wide_Confugration</name><title>Section 2 - System Wide Confugration</title><type>TEXT</type><msg></msg></item>
+<item><name>21_Installing_and_Maintaining_Software</name><title>2.1. Installing and Maintaining Software</title><type>TEXT</type><msg></msg></item>
+<item><name>211_Initial_Installation_Recommendations</name><title>2.1.1. Initial Installation Recommendations</title><type>TEXT</type><msg></msg></item>
+<item><name>21111_Create_Separate_Partition_or_Logical_Volume_for_tmp</name><title>2.1.1.1.1. Create Separate Partition or Logical Volume for /tmp</title><type>LOW</type><msg>A separate partition or logical volume does not exist for /tmp</msg><rec>Create a separate logical volume of 10GB and mount it on /tmp</rec></item>
+<item><name>21112_Create_separate_partition_or_logical_volume_for_var</name><title>2.1.1.1.2. Create separate partition or logical volume for /var</title><type>LOW</type><msg>A separate partition or logical volume does not exist for /var</msg><rec>Create a separate logical volume of 10GB and mount it on /var</rec></item>
+<item><name>21113_Create_separate_partition_or_logical_volume_for_varlog</name><title>2.1.1.1.3. Create separate partition or logical volume for /var/log</title><type>LOW</type><msg>A separate partition or logical volume does not exist for /var/log</msg><rec>Create a separate logical volume of size large enough for all logs
+and mount it on /var/log</rec></item>
+<item><name>21114_Create_separate_partition_or_logical_volume_for_varlogaudit</name><title>2.1.1.1.4. Create separate partition or logical volume for /var/log/audit</title><type>LOW</type><msg>A separate partition or logical volume does not exist for	/var/log/audit</msg><rec>Create a sperate logical volume of size large	enough for all audit logs
+and mount in on /var/log/audit.</rec></item>
+<item><name>21115_Create_a_separate_partition_or_logical_volume_for_home_if_using_local_home_directories</name><title>2.1.1.1.5. Create a separate partition or logical volume for /home if using local home directories.</title><type>PASS</type><msg>A separate partition or logical volume does not exist for /home</msg><rec>Create a sperate logical volume of size large	enough for all local user
+home directories and mount it on /home.</rec></item>
+<item><name>2112_Boot_loader_configuration__boot_loader_password</name><title>2.1.1.2. Boot loader configuration / boot loader password</title><type>LOW</type><msg>No grub.conf found in either /etc/grub.conf or /boot/grub/grub.conf.  This can happen if the system has been upgraded to grub2</msg><rec>This is not a problem really as boot loader passwords can only be entered in at the console and can be avoided via the rescue CD.</rec></item>
+<item><name>2112_Boot_loader_configuration__boot_loader_password</name><title>2.1.1.2. Boot loader configuration / boot loader password</title><type>LOW</type><msg>No grub.conf found in either /etc/grub.conf or /boot/grub/grub.conf.  This can happen if the system has been upgraded to grub2</msg><rec>This is not a problem really as boot loader passwords can only be entered in at the console and can be avoided via the rescue CD.</rec></item>
+<item><name>2113_Network_devices</name><title>2.1.1.3. Network devices</title><type>TEXT</type><msg>There are no security checks in this section.  Check DHCP configuration.
+It is covered in a later section of this report.</msg></item>
+<item><name>2114_Root_password</name><title>2.1.1.4. Root password</title><type>TEXT</type><msg>The root password can not be audited as it is not known.  User password security
+is covered later in this document. The root password should be at least 
+12 chars long and contain a mix of upper and lower case chars, numerical numbers
+and special characters.</msg></item>
+<item><name>2115_Software_packages</name><title>2.1.1.5. Software packages</title><type>TEXT</type><msg>This section deals with configuration applied during initial installation.
+It does not apply to this audit.  Existing services and daemons are covered
+later in this report.</msg></item>
+<item><name>2116_First_boot_configuration</name><title>2.1.1.6. First boot configuration</title><type>TEXT</type><msg>This section deals with configuration applid during initial installation.
+It does not apply to this audit.</msg></item>
+<item><name>212_Updating_software</name><title>2.1.2. Updating software</title><type>TEXT</type><msg>This entire section is covered by standard patching procedures.  There
+are no active checks that can be made on the system.  There are many different
+ways to configure patching and this tool can not cover them all.</msg></item>
+<item><name>213_Software_integrity_checking</name><title>2.1.3. Software integrity checking</title><type>TEXT</type><msg>This tool does not test for the presence of softare integrity checking
+tools. There are many different tools available and these should be considered
+on a case by case basis.</msg></item>
+<item><name>22_File_permissions_and_masks</name><title>2.2. File permissions and masks</title><type>TEXT</type><msg></msg></item>
+<item><name>221_Restrict_partition_mount_options</name><title>2.2.1. Restrict partition mount options</title><type>TEXT</type><msg></msg></item>
+<item><name>2211_Add_nodev_option_to_non-root_local_partitions</name><title>2.2.1.1. Add nodev option to non-root local partitions</title><type>MED</type><msg>There are mounted partitions or logical volumes without the 'nodev' mount option.</msg><rec>Add the nodev option to the comma separated mount options on the locally
+partitions in /etc/fstab.  These are usually those with filetype=ext2,ext3 or ext4.
+a list of affected partitions found by this check follows:
+Line:10,UUID=7390575e-d5a2-4d91-b9f5-d077651249cf /boot ext4 defaults 1 2
+Line:11,/dev/mapper/vg_eitdavidl-lv_home /home ext4 defaults 1 2</rec></item>
+<item><name>2212_and_2213_nodev,_nosuid,_noexec_options_to_partitions_in_etcfstab</name><title>2.2.1.2 and 2.2.1.3. nodev, nosuid, noexec options to partitions in /etc/fstab/</title><type>PASS</type><msg>Local partitions are not mounted securly: nodev,nosuid &amp; noexec</msg><rec>no cdrom, floppy, usb, /tmp or /dev/shm in /etc/fstab</rec></item>
+<item><name>2214_Bind-mount_vartmp_to_tmp</name><title>2.2.1.4. Bind-mount /var/tmp to /tmp</title><type>LOW</type><msg>/tmp is not bind mounted to /var/tmp</msg><rec>Edit the file /etc/fstab. Add the following line:
+/tmp	/var/tmp	none	rw,noexec,nosuid,nodev,bind	0 0
+This line will bind-mount the world-writeable /var/tmp directory onto /tmp,
+using the restrictive mount options specified. See the mount(8) man page for
+further explanation of bind mounting</rec></item>
+<item><name>222_Restrict_Dynamic_Mounting_and_Unmounting_of_Filesystems</name><title>2.2.2. Restrict Dynamic Mounting and Unmounting of Filesystems</title><type>TEXT</type><msg>Restrict Console Device Access
+Console device access for non root users is required on most systems that
+employ sudo for root escalation.  Should console access be required the
+attending technician will most likely be required to log in with their
+own user account and escalate to root when required using the sudo facility.
+--- No checks made.</msg></item>
+<item><name>222_Disable_USB_Device_Support</name><title>2.2.2. Disable USB Device Support.</title><type>TEXT</type><msg>USB Device support is sometimes required for remedial activities.  Should it
+be required in the event of emergency it makes sense for the system to
+support it.  Any delay to restoration of service would be unacceptable in a
+production environment.
+However!  In some cases USB Support might be deemed too much of a security
+risk and can be disabled.  A common middle ground is to disable automatic
+loading of usb drivers but to allow administrators to load them manually if
+and when required.</msg></item>
+<item><name>222_Disable_Modprobe_Loading_of_USB_Storage_Driver</name><title>2.2.2. Disable Modprobe Loading of USB Storage Driver</title><type>LOW</type><msg>File /etc/modprobe.conf does not exist</msg><rec>If automatic USB Storage support is not required then it's best to disalbe 
+it.
+Append the line, "install usb-storage /bin/true" to /etc/modprobe.conf</rec></item>
+<item><name>22222_Remove_USB_Storage_Driver</name><title>2.2.2.2.2. Remove USB Storage Driver</title><type>TEXT</type><msg>Not checked.  USB Storage might be required for remedial activities in an
+emergency.  Auto loading of USB devices should be disabled.</msg></item>
+<item><name>22223_Disable_Kernel_Support_for_USB_via_Bootloader_Configuration</name><title>2.2.2.2.3. Disable Kernel Support for USB via Bootloader Configuration.</title><type>TEXT</type><msg>Not checked.  Removing all USB support with the 'nousb' kernel parameter
+will also disable usb keyboard and usb mouse support at the console.</msg></item>
+<item><name>2223_Disable_the_Automounter_if_Possible</name><title>2.2.2.3. Disable the Automounter if Possible</title><type>PASS</type><msg>autofs is enabled.</msg><rec>autofs should be disabled if it's not required.  NFS Mounts can be done
+manually in /etc/fstab
+Issue the following command to turn autofs off:
+# chkconfig autofs off</rec></item>
+<item><name>2224_Disable_GNOME_Automounting_if_Possible</name><title>2.2.2.4. Disable GNOME Automounting if Possible</title><type>TEXT</type><msg>Disabling automounting of CDROM and USB media on a server located in a
+secure datacentre facility serves little purpose in terms of security.
+GNOME Automount is not checked by this tool.
+This is currently not tested by this tool.</msg></item>
+<item><name>2225_Disable_Mounting_of_Uncommon_Filesystem_Types</name><title>2.2.2.5. Disable Mounting of Uncommon Filesystem Types.</title><type>TEXT</type><msg>Append the following lines to /etc/modprobe.conf in order to prevent the usage
+of uncommon filesystem types:
+	install	cramfs		/bin/true
+	install	freevxfs	/bin/true
+	install	jffs2		/bin/true
+	install	hfs		/bin/true
+	install	hfsplus		/bin/true
+	install	squashfs	/bin/true
+	install	udf		/bin/true</msg></item>
+<item><name>223_File_Permissions</name><title>2.2.3. File Permissions</title><type>TEXT</type><msg></msg></item>
+<item><name>2231_Verify_Permissions_on_etcpasswd</name><title>2.2.3.1. Verify Permissions on /etc/passwd</title><type>PASS</type><msg>/etc/passwd has the incorrect permissions configured.</msg><rec>Set the permissions of /etc/passwd to -rw-r--r-- by executing the following command:
+#chmod 0644 /etc/passwd</rec></item>
+<item><name>2231_Verify_Permissions_on_etcgroup</name><title>2.2.3.1. Verify Permissions on /etc/group</title><type>PASS</type><msg>/etc/group has the incorrect permissions configured.</msg><rec>Set the permissions of /etc/group to -rw-r--r-- by executing the following command:
+# chmod 0644 /etc/group</rec></item>
+<item><name>2231_Verify_Permissions_on_etcshadow</name><title>2.2.3.1. Verify Permissions on /etc/shadow</title><type>HIGH</type><msg>/etc/shadow has incorrect permissions</msg><rec>Set the permissions of /etc/shadow to -r-------- by executing the following command:
+#chmod 0400 /etc/shadow
+Current permission set: ----------</rec></item>
+<item><name>2231_Verify_Permissions_on_etcgshadow</name><title>2.2.3.1. Verify Permissions on /etc/gshadow</title><type>HIGH</type><msg>/etc/gshadow has incorrect permissions</msg><rec>Set the permissions of /etc/gshadow to -r-------- by executing the following command:
+#chmod 0400 /etc/gshadow
+Current permission set: ----------</rec></item>
+<item><name>2231_Verify_Owners_on_etcpasswd</name><title>2.2.3.1. Verify Owners on /etc/passwd</title><type>PASS</type><msg>The owner:group configured for /etc/passwd is incorrect.</msg><rec>Set the owner:group of /etc/passwd to root:root by executing the following command:
+#chown root:root /etc/passwd</rec></item>
+<item><name>2231_Verify_Owners_on_etcgroup</name><title>2.2.3.1. Verify Owners on /etc/group</title><type>PASS</type><msg>The owner:group configured for /etc/group is incorrect.</msg><rec>Set the owner:group of /etc/group to root:root by executing the following command:
+#chown root:root /etc/group</rec></item>
+<item><name>2231_Verify_Owners_on_etcshadow</name><title>2.2.3.1. Verify Owners on /etc/shadow</title><type>PASS</type><msg>The owner:group configured for /etc/shadow is incorrect.</msg><rec>Set the owner:group of /etc/shadow to root:root by executing the following command:
+#chown root:root /etc/shadow</rec></item>
+<item><name>2231_Verify_Owners_on_etcgshadow</name><title>2.2.3.1. Verify Owners on /etc/gshadow</title><type>PASS</type><msg>The owner:group configured for /etc/gshadow is incorrect.</msg><rec>Set the owner:group of /etc/gshadow to root:root by executing the following command:
+#chown root:root /etc/gshadow</rec></item>
+<item><name>2232_Verify_that_all_World-Writable_Directories_Have_Sticky_Bit_Set</name><title>2.2.3.2. Verify that all World-Writable Directories Have Sticky Bit Set.</title><type>PASS</type><msg>There are directories that do not have the sticky bit set.  Any user on the
+system can delete any file created by other users in these directories.</msg><rec>Evaluate the requirement for these world writable directories and if they
+are required then set the sticky bit on them by issuing the following command:
+# chmod +t [dirname]</rec></item>
+<item><name>2233_Find_unauthorized_World-Writable_Files</name><title>2.2.3.3. Find unauthorized World-Writable Files.</title><type>LOW</type><msg>There are world-writable files.  Any user on the system can delete any
+world-writable files created by other users.</msg><rec>Evaluate the requirement for these world writable files and if they are not
+required then set them owner/group writable only by issuing the following
+command:
+# chmod o-w [filename]
+Here follows a list of world-writable files.
+/home/dave/Documents/BAU/oem_alert_logic_flow_diagram.png
+/home/dave/Documents/BAU/oem_alert_logic_flow_diagram.vsd
+/home/dave/Documents/BAU/OEM-Alert-Logic.doc
+/home/dave/Documents/puppet/Puppet Strategy.docx
+/home/dave/iTunesMedia/.iTunes Preferences.plist
+/home/dave/Pictures/taxi_davidlatham_2011-12-18.JPG
+/home/dave/outlook-zimbra-folders/Microsoft/Outlook/Zimbra.zdb</rec></item>
+<item><name>2234_Find_unauthorised_SUIDSGID_system_executables</name><title>2.2.3.4. Find unauthorised SUID/SGID system executables.</title><type>LOW</type><msg>There are executables with the SUID or SGID bits set.</msg><rec>Executables with SUID or SGID bits set can be executed by unauthorised
+users. Unfortunately there is no automated way of dealing with this.  Each
+executable found here needs to be evaluate the following files and if their 
+SUID / SGID bits do not need to be set then unset them by issueing the following
+command:
+# chmod -s [filename]
+/sbin/netreport
+/usr/sbin/lockdev
+/usr/sbin/sendmail.sendmail
+/usr/libexec/utempter/utempter
+/usr/libexec/openssh/ssh-keysign
+/usr/lib64/vte-2.90/gnome-pty-helper
+/usr/lib64/vte/gnome-pty-helper
+/usr/bin/lockfile
+/usr/bin/write
+/usr/bin/ssh-agent
+/usr/bin/iagno
+/usr/bin/gnomine
+/usr/bin/wall
+/usr/bin/crontab
+/usr/bin/locate</rec></item>
+<item><name>2235_Find_Unowned_Files</name><title>2.2.3.5. Find Unowned Files</title><type>PASS</type><msg>There were unowned files.</msg><rec>Unowned files are not directly exploitable, but they are generally a sign 
+that something is wrong with some system process. They may be caused by an 
+intruder, by incorrect software installation or incomplete software removal, or 
+by failure to remove all files belonging to a deleted account. The files should 
+be repaired so that they will not cause problems when accounts are created in 
+the future, and the problem which led to unowned files should be discovered and 
+addressed.</rec></item>
+<item><name>2236_Verify_all_World-Writable_directories_have_proper_ownership</name><title>2.2.3.6. Verify all World-Writable directories have proper ownership</title><type>PASS</type><msg>There are world-writable directories without proper ownership.</msg><rec>Allowing a user account to own a world-writable directory is undesirable 
+because it allows the owner of that directory to remove or replace any files 
+that may be placed in the directory by other users.</rec></item>
+<item><name>224_Restrict_Programs_from_Dangerous_Execution_Patterns</name><title>2.2.4. Restrict Programs from Dangerous Execution Patterns</title><type>TEXT</type><msg></msg></item>
+<item><name>2241_Set_Daemon_umask</name><title>2.2.4.1. Set Daemon umask</title><type>MED</type><msg>The init daemon runs with an insecure umask.</msg><rec>The daemon UMASK should be set to 027 to protect files including temporary 
+files and log files from unauthorized reading by unprivileged users on the 
+system. Append the following to /etc/sysconfig/init:
+umask 027</rec></item>
+<item><name>2242_Disable_Core_Dumps</name><title>2.2.4.2. Disable Core Dumps</title><type>LOW</type><msg>Core dumps are enabled.</msg><rec>Only developers under specific circumstances require core dumps.  Core 
+dumps may contain sensitive information and should be disabled by default.</rec></item>
+<item><name>22321_Ensure_SUID_Dumps_are_Disabled</name><title>2.2.3.2.1. Ensure SUID Dumps are Disabled</title><type>LOW</type><msg>SUID Dumps are enabled</msg><rec>SUID Dumps allow SUID executables to ouptut core dump information which may
+contain sensitive data.</rec></item>
+<item><name>2243_Enable_ExecShield</name><title>2.2.4.3. Enable ExecShield</title><type>PASS</type><msg>ExecShield is disabled and/or randomize_va_space is turned off.</msg><rec>The ExecShield offeres systems that support it the ability to randomly 
+place application code into a randmon section of memory.  This prevents exploits 
+that relay on application code to reside in predictable address spaces.
+Enable Exec Shield by issuing the following commands:
+# sysctl -w kernel.exec-shield=1
+# sysctl -w kernel.randomize_va_space=1</rec></item>
+<item><name>2244_Enable_NX_or_XD_Support</name><title>2.2.4.4. Enable NX or XD Support</title><type>PASS</type><msg>This system is a 32bit system and the PAE kernel is not installed.</msg><rec>This is a feature that is enabled in the bios.  If enabled, it is used by 
+default in 64bit systems and 32bit systems running the PAE kernel.  Install the 
+32bit Kernel-PAE packages to ensure that Execute Disable (XD) or 
+No Execute (NX) are supported.</rec></item>
+<item><name>2245_Configure_Prelink</name><title>2.2.4.5. Configure Prelink</title><type>LOW</type><msg>Prelinking is enabled.</msg><rec>Prelinking decreases process startup time by loading shared libraries into 
+and address for which the linking of needed symbols has already been performed.  
+After a binary has been prelinked, the address at which shared libraries will be
+loaded will no longer be random on a per process basis even if the 
+kernel.randomize_va_space is set to 1.  This provides a stable address for an 
+attacker to use during exploitation attempts. Disable prelinking by executing 
+the following commands:
+In /etc/sysconfig/prelink set PRELINK=no
+# /usr/sbin/prelink -ua
+to revert any prelinked binaries to their original content.</rec></item>
+<item><name>23_Account_and_Access_Control</name><title>2.3. Account and Access Control</title><type>TEXT</type><msg></msg></item>
+<item><name>231_Protect_Accounts_by_Restricting_Password-Based_Login</name><title>2.3.1. Protect Accounts by Restricting Password-Based Login</title><type>TEXT</type><msg></msg></item>
+<item><name>2311_Restrict_Root_Logins_to_System_Console</name><title>2.3.1.1. Restrict Root Logins to System Console</title><type>MED</type><msg>Root logins are not restricted to console.</msg><rec>Root logins should only be allowed for emergencies.  As such root logins 
+should only be allowed on the console. Under normal circumstances administrators
+should log in with a normal unprivilaged account and then escalate to root via 
+su - or sudo.
+Edit the /etc/securetty file to ensure that only |console|, |tty[123456]|, 
+|vc/[123456]| and if required |ttyS[01]| are listed.</rec></item>
+<item><name>2312_Limit_su_Access_ot_the_Root_Account</name><title>2.3.1.2. Limit su Access ot the Root Account</title><type>MED</type><msg>Non members of the wheel group are able to su - into root.</msg><rec>By convention the group <u>wheel</u> is used to define users who have 
+permission to escalate to root. Ensure that members of the wheel group are 
+authorised system admins and alter the following line in /etc/pam.d/su:
+	auth	required	pam_wheel.so	use_uid
+Wheel group members are:
+wheel:x:10:dave</rec></item>
+<item><name>2313_Configure_sudo_to_improve_auditing_of_root_access</name><title>2.3.1.3. Configure sudo to improve auditing of root access.</title><type>PASS</type><msg>sudo is not configured to allow wheel group members to execute commands as
+root.</msg><rec>Using sudo to allow members of the wheel group to execute privilleged
+commands provides great flexibility and an audit trail BUT comes with a risk.
+An attacker that has access to a wheel group member's password is able to
+access commands as the root user.
+use the [visudo] command to uncomment or add the following line in /etc/visudo:
+	%wheel	ALL=(ALL)	ALL</rec></item>
+<item><name>2314_Block_shell_and_login_access_for_non_root_system_accounts</name><title>2.3.1.4. Block shell and login access for non root system accounts.</title><type>MED</type><msg>Accounts exist with UID less than 500 with shell access.</msg><rec>Remove shell access from system accounts to make it more difficult for an 
+attacker to use them.
+For each identified system account SYSACCT, lock the account and disable the
+shell:
+# usermod -L SYSACCT - lock the account
+# usermod -s /sbin/nologin SYSACCT
+sync
+shutdown
+halt</rec></item>
+<item><name>2315_Verify_proper_storage_and_existence_of_password_hashes</name><title>2.3.1.5. Verify proper storage and existence of password hashes.</title><type>TEXT</type><msg></msg></item>
+<item><name>23151_Verify_that_no_accounts_have_empty_password_fields</name><title>2.3.1.5.1. Verify that no accounts have empty password fields.</title><type>PASS</type><msg>Accounts with empty password fields exist.</msg><rec>For each account identified, either lock the account or set a password.
+An account without a password can be accessed by any user.</rec></item>
+<item><name>23152_Verify_that_All_Account_Password_Hashes_are_Shadowed</name><title>2.3.1.5.2. Verify that All Account Password Hashes are Shadowed</title><type>PASS</type><msg>There are accounts with password hashes not being shadowed.</msg><rec>Keeping password hashes in the non world readable shadow file keeps regular
+users from viewing them.</rec></item>
+<item><name>2316_Verify_that_no_non-root_accounts_have_uid_=_0</name><title>2.3.1.6. Verify that no non-root accounts have uid = 0</title><type>PASS</type><msg>There are non root accounts with uid=0</msg><rec>Accounts with UID=0 other than root, may result in unexpected side effects
+and are therefore not recommended.</rec></item>
+<item><name>2317_Set_password_expiration_parameters</name><title>2.3.1.7. Set password expiration parameters</title><type>MED</type><msg>Password expiry rules are not configured correctly.</msg><rec>Configure password expiry for each existing user set the current expiration 
+settings:
+# chage -M 90 -m 7 -W 7 USER
+and configure the defaults in /etc/login.defs:
+
+PASS_MAX_DAYS = 99999 = NOT OK
+PASS_MIN_DAYS = 0 = NOT OK
+PASS_MIN_LEN = 5 = NOT OK
+Set them to this:
+PASS_MAX_DAYS 90
+PASS_MIN_DAYS 7
+PASS_MIN_LEN  8
+PASS_WARN_AGE 7</rec></item>
+<item><name>23171_Remove_password_parameters_from_libuserconf</name><title>2.3.1.7.1. Remove password parameters from libuser.conf</title><type>PASS</type><msg>/etc/libuser.conf contains password parameters that override those defined 
+in /etc/login.defs</msg><rec>Edit /etc/libuser.conf so that it has a reference to login.defs in the 
+[import] section as follows:
+login_defs = /etc/login.defs
+Also make sure that no lines begining with the following appear anywhere in the
+[userdefaults] section:
+LU_SHADOWMAX
+LU_SHADOWMIN
+LU_SHADOWWARNING
+LU_UIDNUMBER</rec></item>
+<item><name>2318_Remove_legacy_'+'_entries_from_password_files</name><title>2.3.1.8. Remove legacy '+' entries from password files</title><type>PASS</type><msg>There are legacy + symbols in password files.</msg><rec>A '+' symbols in password files is a legacy reference to NIS logins.
+Should NIS or LDAP logins be required the correct place to configure that is in
+/etc/nsswitch.conf.  Using legacy '+' symbols in password files while NIS is
+turned off might result in a user having access to the system with the
+username = '+'</rec></item>
+<item><name>232_Use_unix_groups_to_enhance_security</name><title>2.3.2. Use unix groups to enhance security</title><type>TEXT</type><msg>This is standard operating procedure and should be covered by policy.
+There is no real way to test for this. ideas are welcome.</msg></item>
+<item><name>233_Protect_accounts_by_configuring_PAM</name><title>2.3.3. Protect accounts by configuring PAM</title><type>TEXT</type><msg>PAM, or Pluggable Authentication Modules, is a system which implements modular
+authentication for Linux programs. PAM is the framework which provides the 
+system’s authentication architecture and can be configured to minimize your 
+system’s exposure to unnecessary risk. This section contains guidance on how to 
+accomplish that, and how to ensure that the modules used by your PAM 
+configuration do what they are supposed to do. PAM is implemented as a set of 
+shared objects which are loaded and invoked whenever an application wishes to 
+authenticate a user. Typically, the application must be running as root in order 
+to take advantage of PAM. Traditional privileged network listeners (e.g. sshd) 
+or SUID programs (e.g. sudo) already meet this requirement. An SUID root 
+application, userhelper, is provided so that programs which are not SUID or 
+privileged themselves can still take advantage of PAM.
+PAM looks in the directory /etc/pam.d for application-specific configuration 
+information. For instance, if the program login attempts to authenticate a 
+user, then PAM’s libraries follow the instructions in the file 
+/etc/pam.d/login to determine what actions should be taken.
+One very important file in /etc/pam.d is /etc/pam.d/system-auth. This file, 
+which is included by many other PAM configuration files, defines “default” 
+system authentication measures. Modifying this file is a good way to make 
+far-reaching authentication changes, for instance when implementing a 
+centralized authentication service.
+
+Be careful when making changes to PAM’s configuration files. The syntax for 
+these files is complex, and modifications can have unexpected consequences.
+The default configurations shipped with applications should be sufficient 
+for most users.
+
+Running authconfig or system-config-authentication will re-write the PAM 
+configuration files, destroying any manually made changes and replacing 
+them with a series of system defaults.</msg></item>
+<item><name>2331_Set_password_quality_requirements</name><title>2.3.3.1. Set password quality requirements.</title><type>TEXT</type><msg></msg></item>
+<item><name>23311_Set_password_quality_reqruirments_if_using_pam_cracklib</name><title>2.3.3.1.1. Set password quality reqruirments if using pam_cracklib</title><type>HIGH</type><msg>Password complexity is not convigured in pam_cracklib correctly.</msg><rec>Add udcredit=-1 ucreadit=-1 lcredit=-1 minlen=8 to make passwords 
+have at least one uppercase, one lowercase and one digit as well as be at least 
+8 chars long to the end
+
+cracklib does not define minlen.  Add minlen=8 to the end of password	requisite	pam_cracklib.so try_first_pass retry=3
+cracklib does not define dcredit. (at least one digit).  Add dcreadit=-1 to end of password	requisite	pam_cracklib.so try_first_pass retry=3
+cracklib does not define lcredit. (at least one lowercase). Add lcredit=-1 to end of password	requisite	pam_cracklib.so try_first_pass retry=3
+cracklib does not define ucredit. (at least one uppercase). Add ucredit=-1 to end of password	requisite	pam_cracklib.so try_first_pass retry=3</rec></item>
+<item><name>2332_Set_lockouts_for_failed_password_attempts</name><title>2.3.3.2. Set lockouts for failed password attempts</title><type>HIGH</type><msg>PAM is not configured to lock users out after failed password attempts.</msg><rec>Configure account lockouts after failed password attempts by altering the 
+following lines in /etc/pam.d/system-auth:
+###
+auth	sufficient	pam_unix.so nullok try_first_pass
+###
+	change to
+###
+auth	required	pam_unix.so nullok try_first_pass
+###
+
+then comment out or delete the following lines:
+
+###
+#auth	requisite	pam_succeed_if.so uid >= 500 quiet
+#auth	required	pam_deny.so
+###
+then to force lockout, add the following to the individual programs' 
+configuration files in /etc/pam.d.
+First, add to end of the auth lines:
+###
+auth	required	pam_tally2.so deny=5 onerr=fail
+###
+
+Second, add to the end of the account lines:
+###
+account	required	pam_tally2.so
+###
+Locking out user accounts presents the risk of a denial-of-service attack. The 
+security policy regarding system lockout must weigh whether the risk of such a 
+denial-of-service attack outweighs the benefits of thwarting password guessing 
+attacks. The pam tally2 utility can be run from a cron job on a hourly or daily 
+basis to try and offset this risk.</rec></item>
+<item><name>2333_Use_pam_denyso_to_quickly_deny_access_to_a_service</name><title>2.3.3.3. Use pam_deny.so to quickly deny access to a service.</title><type>TEXT</type><msg>In order to deny access to a service SVCNAME via PAM, edit the file 
+/etc/pam.d/SVCNAME . Prepend this line to the beginning of the file:
+###
+auth	requisite	pam_deny.so
+###</msg></item>
+<item><name>2334_Restrict_execution_of_userhelper_to_console_users</name><title>2.3.3.4. Restrict execution of userhelper to console users.</title><type>LOW</type><msg>The userhelper program can be executed by any user of the system.
+current permissions = 4711</msg><rec>Restrict execute access to the userhelper program to a group of human 
+users. First alter the owner of /usr/sbin/userhelper to the group of human 
+users:
+#chgrp [usergroup] /usr/sbin/userhelper
+
+Second alter the permissions so that only the user and owner (root) can execute 
+the program:
+#chmod 4710 /usr/sbin/userhelper</rec></item>
+<item><name>2335_Upgrade_password_hashing_algorythm_to_SHA-512</name><title>2.3.3.5. Upgrade password hashing algorythm to SHA-512</title><type>PASS</type><msg>Password hash algorythm is out of date.</msg><rec>Change the password hashing algorythm to a more secure version.  Password
+hashes will only be updated when users change their passwords.
+Edit 3 files:
+
+1: /etc/pam.d/system-auth
+	password	sufficient	pam_unix.so sha512 shadow nullok try_first_pass use_authtok
+
+2: /etc/login.defs
+	MD5_CRYPT_ENAB no
+	ENCRYPT_METHOD SHA512
+
+3: /etc/libuser.conf
+	crypt_style = sha512</rec></item>
+<item><name>2336_Limit_password_reuse</name><title>2.3.3.6. Limit password reuse</title><type>MED</type><msg>Passwords can be reused more frequently than once every 5 times.</msg><rec>Configure pam to remember passwords so that users can not reuse any of
+their last 5 passwords:
+edit /etc/pam.d/system-auth (append remember=5 to the password sufficient line)
+	password sufficient pam_unix.so [existing options] remember=5</rec></item>
+<item><name>2337_Remove_the_pam_ccreds_package_is_possible</name><title>2.3.3.7. Remove the pam_ccreds package is possible.</title><type>PASS</type><msg>The pam_ccreds package is installed.</msg><rec>The pam_ccreds package provides the setuid program and should be removed
+unless it provides essential functionality.  It caches credentials so if the
+cache were ever compromised it would present a major security risk.  Remove it
+with:
+yum erase pam_ccreds</rec></item>
+<item><name>234_Secure_session_configuration_for_login_accounts</name><title>2.3.4. Secure session configuration for login accounts.</title><type>TEXT</type><msg></msg></item>
+<item><name>2341_Ensure_no_dangerous_directories_exist_in_root's_path</name><title>2.3.4.1. Ensure no dangerous directories exist in root's path.</title><type>TEXT</type><msg>Best practice is for sysadmins to execute applications by typing in the full
+path to the executable.  Any strange directories in root's path could contain
+executables installed by unpriviliged users and could be dangerous.
+Interrogate root's path with
+# echo $PATH</msg></item>
+<item><name>23411_Ensure_that_root's_path_does_not_include_relative_paths_or_null_directories</name><title>2.3.4.1.1. Ensure that root's path does not include relative paths or null directories.</title><type>PASS</type><msg>Root's path contains relatives paths or null directories.</msg><rec>The following items in root's path are suspect and should be removed.</rec></item>
+<item><name>23412_Ensure_root's_path_does_not_include_world__group_writable_directories</name><title>2.3.4.1.2. Ensure root's path does not include world / group writable directories.</title><type>PASS</type><msg>Root's path contains world writable directories.</msg><rec>Remove world and group writable permissions from directories in root's
+path. Here follows the offending paths:</rec></item>
+<item><name>2342_User_home_direcotires_must_not_be_group__world_writable</name><title>2.3.4.2. User home direcotires must not be group / world writable.</title><type>PASS</type><msg>User home directories are group / world writable.</msg><rec>Sometimes this is required so BE CAREFUL to solicit user input prior to
+making this change. Change permissions on the following home dirs as follows:
+# chmod g-w /path/to/home/[user]
+# chmod o-rwx /path/to/home/[user]</rec></item>
+<item><name>2343_Ensure_user_dot_files_are_not_world_writable</name><title>2.3.4.3. Ensure user dot files are not world writable.</title><type>HIGH</type><msg>There are user dot files that are world writable.</msg><rec>Ensuring that configuration files are not world writable prevents 
+unauthorised users from altering configuration of other users.
+Issue the following command to fix these:
+# chmod go-w /path/to/[.filename]
+664 /home/dave/Documents/puppet/hood-puppet/.gitignore
+664 /home/dave/devel/webremote/.project
+664 /home/dave/devel/webremote/.pydevproject
+664 /home/dave/devel/.metadata/.lock
+664 /home/dave/devel/.metadata/.mylyn/.tasks.xml.zip
+664 /home/dave/devel/.metadata/.log
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.core.resources/.projects/nsa-sec-audit/.location
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.core.resources/.projects/webremote/.markers
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.cdt.core/.log
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.rse.ui/.log
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.rse.core/.log
+664 /home/dave/devel/gnome-shell-extensions/m4/.gitignore
+664 /home/dave/devel/gnome-shell-extensions/config/.gitignore
+664 /home/dave/devel/gnome-shell-extensions/.gitignore
+664 /home/dave/.SciTEUser.properties
+664 /home/dave/.vim/.netrwhist
+664 /home/dave/.pkglist
+666 /home/dave/iTunesMedia/.iTunes Preferences.plist
+664 /home/dave/.mozilla/firefox/4qdn2z64.default/.parentlock
+664 /home/dave/.gtk-bookmarks
+664 /home/dave/.vimrc
+664 /home/dave/.local/share/Trash/files/securityauditscripts/.project
+664 /home/dave/.local/share/Trash/files/securityauditscripts/.buildpath
+664 /home/dave/.local/share/evolution/mail/local/..maildir++
+664 /home/dave/.local/share/evolution/mail/local/.Drafts.cmeta
+664 /home/dave/.local/share/evolution/mail/local/.Sent.cmeta
+664 /home/dave/.local/share/evolution/mail/local/..cmeta
+664 /home/dave/.local/share/evolution/mail/local/.Outbox.cmeta
+664 /home/dave/.local/share/evolution/mail/local/.Templates.cmeta
+664 /home/dave/.local/share/.converted-launchers
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.manager/.fileTable.11
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.manager/.fileTable.10
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.manager/.fileTableLock
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.bundledata.5
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.state.3
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.lazy.3
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.namespaces.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.contributors.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.orphans.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.manager/.fileTable.9
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.manager/.fileTable.8
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.manager/.fileTableLock
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.contributions.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.extraData.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.table.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.mainData.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.equinox.app/.manager/.fileTableLock
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/p2/org.eclipse.equinox.p2.engine/profileRegistry/PlatformProfile.profile/.lock
+664 /home/dave/.ps
+664 /home/dave/.thunderbird/7mrifmv2.default/.parentlock
+664 /home/dave/zdesktop/profile/.parentlock
+664 /home/dave/.rpmmacros
+664 /home/dave/workspace/.metadata/.lock
+664 /home/dave/workspace/.metadata/.log
+664 /home/dave/workspace/.metadata/.plugins/org.eclipse.cdt.core/.log
+1640 /var/lib/gdm/.gconf.path
+664 /opt/Citrix/ICAClient/config/.server
+664 /home/dave/Documents/puppet/hood-puppet/.gitignore
+664 /home/dave/devel/webremote/.project
+664 /home/dave/devel/webremote/.pydevproject
+664 /home/dave/devel/.metadata/.lock
+664 /home/dave/devel/.metadata/.mylyn/.tasks.xml.zip
+664 /home/dave/devel/.metadata/.log
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.core.resources/.projects/nsa-sec-audit/.location
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.core.resources/.projects/webremote/.markers
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.cdt.core/.log
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.rse.ui/.log
+664 /home/dave/devel/.metadata/.plugins/org.eclipse.rse.core/.log
+664 /home/dave/devel/gnome-shell-extensions/m4/.gitignore
+664 /home/dave/devel/gnome-shell-extensions/config/.gitignore
+664 /home/dave/devel/gnome-shell-extensions/.gitignore
+664 /home/dave/.SciTEUser.properties
+664 /home/dave/.vim/.netrwhist
+664 /home/dave/.pkglist
+666 /home/dave/iTunesMedia/.iTunes Preferences.plist
+664 /home/dave/.mozilla/firefox/4qdn2z64.default/.parentlock
+664 /home/dave/.gtk-bookmarks
+664 /home/dave/.vimrc
+664 /home/dave/.local/share/Trash/files/securityauditscripts/.project
+664 /home/dave/.local/share/Trash/files/securityauditscripts/.buildpath
+664 /home/dave/.local/share/evolution/mail/local/..maildir++
+664 /home/dave/.local/share/evolution/mail/local/.Drafts.cmeta
+664 /home/dave/.local/share/evolution/mail/local/.Sent.cmeta
+664 /home/dave/.local/share/evolution/mail/local/..cmeta
+664 /home/dave/.local/share/evolution/mail/local/.Outbox.cmeta
+664 /home/dave/.local/share/evolution/mail/local/.Templates.cmeta
+664 /home/dave/.local/share/.converted-launchers
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.manager/.fileTable.11
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.manager/.fileTable.10
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.manager/.fileTableLock
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.bundledata.5
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.state.3
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.osgi/.lazy.3
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.namespaces.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.contributors.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.orphans.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.manager/.fileTable.9
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.manager/.fileTable.8
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.manager/.fileTableLock
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.contributions.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.extraData.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.table.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.core.runtime/.mainData.2
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/configuration/org.eclipse.equinox.app/.manager/.fileTableLock
+664 /home/dave/.eclipse/org.eclipse.platform_3.7.0_793567567/p2/org.eclipse.equinox.p2.engine/profileRegistry/PlatformProfile.profile/.lock
+664 /home/dave/.ps
+664 /home/dave/.thunderbird/7mrifmv2.default/.parentlock
+664 /home/dave/zdesktop/profile/.parentlock
+664 /home/dave/.rpmmacros
+664 /home/dave/workspace/.metadata/.lock
+664 /home/dave/workspace/.metadata/.log
+664 /home/dave/workspace/.metadata/.plugins/org.eclipse.cdt.core/.log</rec></item>
+<item><name>2344_Ensure_that_users_have_sensible_umask_values,</name><title>2.3.4.4. Ensure that users have sensible umask values,</title><type>TEXT</type><msg>1. Edit the global configuration files /etc/profile, /etc/bashrc, and 
+/etc/csh.cshrc. Add or correct the line:
+	umask 077
+2. Edit the user definitions file /etc/login.defs. Add or correct the line:
+	UMASK 077
+3. View the additional configuration files /etc/csh.login and 
+/etc/profile.d/*, and ensure that none of these files redefine the umask to
+a more permissive value unless there is a good reason for it.
+4. Edit the root shell configuration files /root/.bashrc, 
+/root/.bash profile, /root/.cshrc, and /root/.tcshrc. Add or correct the line:
+	umask 077</msg></item>
+<item><name>2345_Ensure_that_users_do_not_have_netrc_files</name><title>2.3.4.5. Ensure that users do not have .netrc files.</title><type>PASS</type><msg>One or more users on the system contain .netrc config files.</msg><rec>The .netrc file is a configuration file used to make unattended logins to
+other systems via FTP.  When this file exists, it frequently contains
+unencrypted passwords which may be used to attack other systems.
+Remove all the following .netrc files:</rec></item>
+<item><name>235_Protect_Physical_Console_Access</name><title>2.3.5. Protect Physical Console Access</title><type>TEXT</type><msg>Some basic precautions that make hard for attackers to gain console access to 
+a system.</msg></item>
+<item><name>2351_Set_BIOS_password</name><title>2.3.5.1. Set BIOS password</title><type>TEXT</type><msg>Out of scope for this tool.</msg></item>
+<item><name>2352_Set_boot_loader_password</name><title>2.3.5.2. Set boot loader password.</title><type>HIGH</type><msg>No boot loader password is configured.
+COULD NOT FIND /etc/grub.conf.  Is this server running grub2?</msg><rec>A boot loader password requires that a password is entered on the console
+at boot time.  It discourages unauthenticated users from altering the kernel
+parameters at boot time.  For example: Disable SELINUX, boot into single user
+mode and much more.
+Note: The bootloader password is easily overridden via a rescue CD during boot
+time.
+Add a boot loader password as follows:
+1. Select a suitable password and generate a hash from it by using the 
+grub-md5-crypt tool.
+ # grub-md5-crypt
+2. Insert the following line into /etc/grub.conf immediately after hte header
+comments.  (use the output of grub-md5-crypt as the value for [password-hash]
+	password --md5 [password-hash]
+3. Verify the permissions on etc/grub.conf.
+	# chown root:root /etc/grub.conf
+	# chmod 600 /etc/grub.conf</rec></item>
+<item><name>2353_Require_authentication_for_single_user_mode</name><title>2.3.5.3. Require authentication for single user mode.</title><type>LOW</type><msg>Single usermode should be root password authenticated.</msg><rec>Append the following line to /etc/inittab to fix.
+ ~:S:wait:/sbin/sulogin</rec></item>
+<item><name>2354_Disable_interactive_boot</name><title>2.3.5.4. Disable interactive boot.</title><type>LOW</type><msg>Interactive boot allows the console user to select servives that are 
+enabled during boot time.  Important filewalls and security services could be
+disabled and weaken system security.</msg><rec>Add or correct the following setting in /etc/sysconfig/init :
+ PROMPT=no</rec></item>
+<item><name>2355_Implement_Inactivity_Time-out_for_Login_Shells</name><title>2.3.5.5. Implement Inactivity Time-out for Login Shells</title><type>LOW</type><msg>Automatic logout after 15 minutes idle on console sessions.
+See also the section on SSH security 3.5.2.3. for how to configure the same for
+SSH Logins.
+
+*** THIS TEST ONLY CHECKS THE BASH ENVIRONMENT ****</msg><rec>For bash shells, create a file called /etc/profile.d/tmout.sh with the
+following lines:
+ TMOUT=900
+ readonly TMOUT
+ export TMOUT
+
+For tcsh shells, create a file called /etc/profile.d/autologout.csh with the
+following lines:
+ set -r autologout 15
+
+The readonly and -r settings in these files should be omitted if policies allow
+users to override these timeouts.</rec></item>
+<item><name>2356_Configure_Screen_Locking</name><title>2.3.5.6. Configure Screen Locking</title><type>TEXT</type><msg></msg></item>
+<item><name>23561_Configure_gui_screen_locking</name><title>2.3.5.6.1. Configure gui screen locking.</title><type>LOW</type><msg>Only applies if X / gnmoe is installed. Make sure that the
+gnome-screensaver is enabled for all users.
+*** THIS TEST ONLY CHECKS FOR GNOME SESSIONS ***</msg><rec>
+# gconftool-2 --direct --config-source xml:/readwrite:/etc/gconf/gconf.xml.mandatory --type bool --set /apps/gnome-screensaver/idle_activation_enabled true
+# gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory --type bool --set /apps/gnome-screensaver/lock_enabled true
+# gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory --type string --set /apps/gnome-screensaver/mode blank-only
+# gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory --type int --set /apps/gnome-screensaver/idle_delay 15</rec></item>
+<item><name>23561_Configure_gui_screen_locking</name><title>2.3.5.6.1. Configure gui screen locking.</title><type>TEXT</type><msg>Console screen locking can be achived via the vlock program which is not
+installed by default.  If console locking is neccessary then install the vlock
+package.
+ # yum install vlock
+
+Instruct users to enable it with:
+ # vlock -a</msg></item>
+<item><name>2357_Disable_unnecessary_ports</name><title>2.3.5.7. Disable unnecessary ports.</title><type>TEXT</type><msg>Systems in secure data centre
+environments are at low risk of attack vectors via USB, FIREWIRE, SATA and other
+physical ports.
+It is considered best practice to disable ports not required in the BIOS.
+*** WARNING ***
+   Do not disable USB ports in this way as they are required for keyboard and
+   mouse input.</msg></item>
+<item><name>236_Use_a_centralised_authentication_service</name><title>2.3.6. Use a centralised authentication service</title><type>TEXT</type><msg>Consider managing all user accounts and passwords with ldap from a central
+location.</msg></item>
+<item><name>237_Warning_banners_for_system_access</name><title>2.3.7. Warning banners for system access.</title><type>TEXT</type><msg></msg></item>
+<item><name>2371_Modify_the_system_login_banner</name><title>2.3.7.1. Modify the system login banner</title><type>PASS</type><msg>The default login banner is installed.  This gives basic information about
+the operating system and kernel version to users prior to authentication.</msg><rec>It appears as though you have a default redhat warning banner defined
+at /etc/issue.  Consider updating it to one that defines roles and
+responsibilities implied by use of the server.
+Current banner is:
+/etc/issue
+Fedora release 16 (Verne)
+Kernel \r on an \m (\l)</rec></item>
+<item><name>2372_Impliment_a_GUI_warning_banner</name><title>2.3.7.2. Impliment a GUI warning banner.</title><type>TEXT</type><msg>A gui login banner can be defined in /usr/share/gdm/themes/RHEL/RHEL.xml</msg></item>
+<item><name>24_SELinux</name><title>2.4 SELinux</title><type>TEXT</type><msg></msg></item>
+<item><name>241_How_SELinux_Works</name><title>2.4.1. How SELinux Works</title><type>TEXT</type><msg></msg></item>
+<item><name>242_Enable_SELInux</name><title>2.4.2.  Enable SELInux</title><type>HIGH</type><msg>Ensure that SELinux is configured and enabled correctly.
+Edit /etc/selinux/config and add or correct the following lines:
+  SELINUX=enforcing
+  SELINUXTYPE=targeted
+Edit /etc/grub.conf and ensure that the following arguments DO NOT appear on any
+of the kernel command lines:
+  selinux=0
+  enforcing=0</msg><rec>
+ALERT: selinux is not set to enabled in /etc/selinux/config.</rec></item>
+<item><name>2421_Ensure_SELinux_is_properly_enabled</name><title>2.4.2.1. Ensure SELinux is properly enabled.</title><type>HIGH</type><msg>Check that SELinux is currently enabled.  SELinux can be disabled during
+runtime so this check makes sure it's still running.</msg><rec>Alter config settings as 2.4.2.  Enable SELInux
+execute the following command as root:
+ # setenforce 1
+Output of /usr/sbin/sestatus:
+SELinux status:                 disabled</rec></item>
+</items>
