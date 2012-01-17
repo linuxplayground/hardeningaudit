@@ -1600,6 +1600,98 @@ fi
 unset num_device_files;
 xmlitem "${title}" ${type} "${msg}" "${rec}";
 ################################################################################
+section "2.4.6. Debugging SELinux Policy Errors" \
+"This section is not required for database servers.  A more detailed
+review of SELinux might be appropriate.  Please check the above errors and read
+along in the NSA Guide for how to do this.";
+section "2.4.7. Further Strengthening" \
+"This section is not required for database servers.  A more detailed
+review of SELinux might be appropriate.  Please check the above errors and read
+along in the NSA Guide for how to do this.";
+################################################################################
+section "2.5. Network Configuration and Firewalls" \
+"This section checks system settings in terms of networking and firewalls.";
+################################################################################
+title="2.5.1.1. Network Parameters for Hosts Only";
+msg="Make sure the system does not forward network traffic or act as a go
+between in any way.";
+rec="If any of the following values = 1 then set them to 0 and alter
+/etc/sysctl.conf.";
+results="";
+results="$(sysctl net.ipv4.ip_forward | grep -v 0)
+$(sysctl net.ipv4.conf.all.send_redirects | grep -v 0)
+$(sysctl net.ipv4.conf.default.send_redirects | grep -v 0)";
+
+if [ "${results}" != ""  ]; then
+	type="high";
+	rec=$(echo "${rec}
+${results}");
+else
+	type="pass";
+fi
+unset results;
+xmlitem "${title}" ${type} "${msg}" "${rec}";
+################################################################################
+title="2.5.1.2. Network parameters for hosts and routers.";
+msg="General improvement of system ability to defend against certain types of
+IPv4 protocol attacks.";
+results="";
+results="$(sysctl net.ipv4.conf.all.accept_source_route | grep -v 0)
+$(sysctl net.ipv4.conf.all.accept_redirects | grep -v 0)
+$(sysctl net.ipv4.conf.all.secure_redirects | grep -v 0)
+$(sysctl net.ipv4.conf.all.log_martians | grep -v 1)
+$(sysctl net.ipv4.conf.default.accept_source_route | grep -v 0)
+$(sysctl net.ipv4.conf.default.accept_redirects | grep -v 0)
+$(sysctl net.ipv4.conf.default.secure_redirects | grep -v 0)
+$(sysctl net.ipv4.icmp_echo_ignore_broadcasts | grep -v 1)
+$(sysctl net.ipv4.icmp_ignore_bogus_error_responses | grep -v 1)
+$(sysctl net.ipv4.tcp_syncookies | grep -v 1)
+$(sysctl net.ipv4.conf.all.rp_filter | grep -v 1)
+$(sysctl net.ipv4.conf.default.rp_filter | grep -v 1)";
+if [ "${results}" != ""  ]; then
+	type="high";
+	rec=$(echo "${rec}
+Check the results below against these correct values and fix them in 
+/etc/sysctl.conf if they are set incorrectly.
+
+GOOD VALUES
+=============================================
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.secure_redirects = 0
+net.ipv4.conf.all.log_martians = 1
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.default.secure_redirects = 0
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+net.ipv4.icmp_ignore_bogus_error_messages = 1
+net.ipv4.tcp_syncookies = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+
+RESULTS FOUND:
+=============================================
+${results}");
+else
+	type="pass";
+fi
+unset results;
+xmlitem "${title}" ${type} "${msg}" "${rec}";
+################################################################################
+title="2.5.1.3. Ensure System is Not Acting as a Network Sniffer";
+msg="Make sure there is nothing sniffing packets.";
+lc=$(cat /proc/net/packet | wc -l);
+if [ "${lc}" -gt 1 ]; then
+	type="high";
+	rec="Something is acting as a network sniffer and should be investigated.
+Wireshark and TCP DUMP can be valid examples but these should not be left
+running all the time.";
+else
+	type="pass";
+fi
+unset lc
+xmlitem "${title}" ${type} "${msg}" "${rec}";
+################################################################################
 # Collate
 ################################################################################
 echo "</items>" >> report.xml;
